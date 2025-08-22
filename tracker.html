@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1">&lt;title&gt;Loan Tracker&lt;/title&gt;</p>
+<p class="p1">&lt;style&gt;</p>
+<p class="p1">body{font-family:Arial,sans-serif;background:#f0f8ff;padding:20px}</p>
+<p class="p1">.container{max-width:800px;margin:0 auto;background:white;padding:30px;border-radius:10px}</p>
+<p class="p1">h1{color:#333;text-align:center}</p>
+<p class="p1">.section{margin:20px 0;padding:20px;background:#f9f9f9;border-radius:8px}</p>
+<p class="p1">input{width:100%;padding:10px;margin:5px 0;border:1px solid #ddd;border-radius:4px}</p>
+<p class="p1">.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}</p>
+<p class="p1">button{background:#007bff;color:white;padding:15px 30px;border:none;border-radius:5px;cursor:pointer;font-size:16px}</p>
+<p class="p1">&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1">&lt;div class="container"&gt;</p>
+<p class="p1">&lt;h1&gt;🎯 Daily Loan Officer Tracker&lt;/h1&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div class="section"&gt;</p>
+<p class="p1">&lt;h3&gt;💰 Income Goal Calculator&lt;/h3&gt;</p>
+<p class="p1">&lt;label&gt;Yearly Income Goal ($)&lt;/label&gt;</p>
+<p class="p1">&lt;input type="text" id="income" value="250,000"&gt;</p>
+<p class="p1">&lt;label&gt;Average Loan Size ($)&lt;/label&gt;</p>
+<p class="p1">&lt;input type="text" id="loanSize" value="400,000"&gt;</p>
+<p class="p1">&lt;label&gt;Average Basis Points&lt;/label&gt;</p>
+<p class="p1">&lt;input type="number" id="bps" value="125"&gt;</p>
+<p class="p1">&lt;p&gt;&lt;strong&gt;Loans needed per year: &lt;span id="result"&gt;50&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div class="section"&gt;</p>
+<p class="p1">&lt;h3&gt;📞 Lead Generation&lt;/h3&gt;</p>
+<p class="p1">&lt;div class="grid"&gt;</p>
+<p class="p1">&lt;div&gt;&lt;label&gt;Cold Calls&lt;/label&gt;&lt;input type="number" id="coldCalls"&gt;&lt;/div&gt;</p>
+<p class="p1">&lt;div&gt;&lt;label&gt;Warm Calls&lt;/label&gt;&lt;input type="number" id="warmCalls"&gt;&lt;/div&gt;</p>
+<p class="p1">&lt;div&gt;&lt;label&gt;Emails&lt;/label&gt;&lt;input type="number" id="emails"&gt;&lt;/div&gt;</p>
+<p class="p1">&lt;div&gt;&lt;label&gt;🎂 Birthday Videos&lt;/label&gt;&lt;input type="number" id="birthday"&gt;&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div class="section"&gt;</p>
+<p class="p1">&lt;h3&gt;📋 Pipeline&lt;/h3&gt;</p>
+<p class="p1">&lt;div class="grid"&gt;</p>
+<p class="p1">&lt;div&gt;&lt;label&gt;New Applications&lt;/label&gt;&lt;input type="number" id="newApps"&gt;&lt;/div&gt;</p>
+<p class="p1">&lt;div&gt;&lt;label&gt;Closings&lt;/label&gt;&lt;input type="number" id="closings"&gt;&lt;/div&gt;</p>
+<p class="p1">&lt;div&gt;&lt;label&gt;Volume Closed ($)&lt;/label&gt;&lt;input type="text" id="volume"&gt;&lt;/div&gt;</p>
+<p class="p1">&lt;div&gt;&lt;label&gt;Est. Commission&lt;/label&gt;&lt;input type="text" id="commission" readonly&gt;&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div class="section"&gt;</p>
+<p class="p1">&lt;label&gt;Daily Notes&lt;/label&gt;</p>
+<p class="p1">&lt;textarea style="width:100%;height:100px;padding:10px"&gt;&lt;/textarea&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;button onclick="saveData()"&gt;💾 Save Activities&lt;/button&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;script&gt;</p>
+<p class="p1">function calculate(){</p>
+<p class="p1">var income=parseInt(document.getElementById('income').value.replace(/,/g,''))||250000;</p>
+<p class="p1">var loanSize=parseInt(document.getElementById('loanSize').value.replace(/,/g,''))||400000;</p>
+<p class="p1">var bps=parseFloat(document.getElementById('bps').value)||125;</p>
+<p class="p1">var commissionPerLoan=loanSize*(bps/10000);</p>
+<p class="p1">var loansNeeded=Math.ceil(income/commissionPerLoan);</p>
+<p class="p1">document.getElementById('result').textContent=loansNeeded;</p>
+<p class="p2"><br></p>
+<p class="p1">var volume=parseInt(document.getElementById('volume').value.replace(/,/g,''))||0;</p>
+<p class="p1">var commission=volume*(bps/10000);</p>
+<p class="p1">document.getElementById('commission').value='$'+commission.toLocaleString();</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function saveData(){</p>
+<p class="p1">alert('Data saved for '+new Date().toLocaleDateString());</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">document.getElementById('income').addEventListener('input',calculate);</p>
+<p class="p1">document.getElementById('loanSize').addEventListener('input',calculate);</p>
+<p class="p1">document.getElementById('bps').addEventListener('input',calculate);</p>
+<p class="p1">document.getElementById('volume').addEventListener('input',calculate);</p>
+<p class="p1">calculate();</p>
+<p class="p1">&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
