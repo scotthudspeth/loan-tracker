@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Loan Officer Activity Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            padding: 24px;
+        }
+        .content {
+            padding: 24px;
+        }
+        .card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .dashboard-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        .dashboard-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        .input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        .input:focus {
+            outline: none;
+            border-color: #4f46e5;
+        }
+        .btn {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+            body { padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div>
+                    <h1 style="margin: 0; font-size: 2rem; font-weight: bold;">🎯 Daily Activity Tracker</h1>
+                    <p style="margin: 8px 0 0 0; color: #e0e7ff;">Professional Loan Officer Success System</p>
+                </div>
+                <input type="date" id="currentDate" class="input" style="width: auto; background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.3); color: white;">
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Annual Income Calculator -->
+            <div style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); border-radius: 12px; padding: 32px; margin-bottom: 24px; color: white;">
+                <h2 style="margin: 0 0 24px 0; font-size: 1.5rem; font-weight: bold;">💰 Annual Income Goal Calculator</h2>
+                <div class="grid-2" style="margin-bottom: 24px;">
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">Yearly Income Goal ($)</label>
+                        <input type="text" id="yearlyIncome" class="input" placeholder="250,000" value="250,000" style="background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.3); color: white;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">Average Loan Size ($)</label>
+                        <input type="text" id="avgLoanSize" class="input" placeholder="400,000" value="400,000" style="background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.3); color: white;">
+                    </div>
+                </div>
+                <div style="margin-bottom: 24px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Your Average Basis Points</label>
+                    <input type="number" id="avgBPS" class="input" placeholder="125" value="125" style="background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.3); color: white;">
+                </div>
+                
+                <div style="background: rgba(255,255,255,0.2); border-radius: 12px; padding: 20px;">
+                    <h3 style="margin: 0 0 16px 0; font-size: 1.25rem;">🚀 Your Success Formula</h3>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                        <span>Commission per loan:</span>
+                        <span style="font-weight: bold; font-size: 1.1rem;" id="commissionPerLoan">$5,000</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                        <span>Loans needed per year:</span>
+                        <span style="font-weight: bold; font-size: 1.5rem; color: #fde047;" id="loansPerYear">50</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                        <span>Loans needed per month:</span>
+                        <span style="font-weight: bold;" id="loansPerMonth">5</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Loans needed per week:</span>
+                        <span style="font-weight: bold;" id="loansPerWeek">1</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Cards -->
+            <h3 style="margin: 0 0 16px 0; font-size: 1.25rem; font-weight: bold;">📈 Today's Performance</h3>
+            <div class="grid-4" style="margin-bottom: 32px;">
+                <div class="dashboard-card" style="border-color: #3b82f6;">
+                    <div style="font-size: 2rem; margin-bottom: 8px;">📞</div>
+                    <div style="color: #3b82f6; font-weight: 600; margin-bottom: 4px;">Total Calls</div>
+                    <div style="font-size: 1.5rem; font-weight: bold; color: #1e40af;" id="totalCalls">0</div>
+                </div>
+                <div class="dashboard-card" style="border-color: #10b981;">
+                    <div style="font-size: 2rem; margin-bottom: 8px;">📄</div>
+                    <div style="color: #10b981; font-weight: 600; margin-bottom: 4px;">New Applications</div>
+                    <div style="font-size: 1.5rem; font-weight: bold; color: #047857;" id="newApps">0</div>
+                </div>
+                <div class="dashboard-card" style="border-color: #8b5cf6;">
+                    <div style="font-size: 2rem; margin-bottom: 8px;">🏆</div>
+                    <div style="color: #8b5cf6; font-weight: 600; margin-bottom: 4px;">Closings</div>
+                    <div style="font-size: 1.5rem; font-weight: bold; color: #7c3aed;" id="closings">0</div>
+                </div>
+                <div class="dashboard-card" style="border-color: #f59e0b;">
+                    <div style="font-size: 2rem; margin-bottom: 8px;">💰</div>
+                    <div style="color: #f59e0b; font-weight: 600; margin-bottom: 4px;">Est. Commission</div>
+                    <div style="font-size: 1.25rem; font-weight: bold; color: #d97706;" id="commission">$0</div>
+                </div>
+            </div>
+
+            <!-- Activity Tracking -->
+            <div class="grid-2">
+                <!-- Lead Generation -->
+                <div class="card" style="background: #eff6ff;">
+                    <h3 style="margin: 0 0 16px 0; color: #1e40af; font-weight: bold;">📞 Lead Generation</h3>
+                    <div class="grid-2" style="margin-bottom: 16px;">
+                        <div>
+                            <label style="display: block; margin-bottom: 4px; font-weight: 500;">Cold Calls</label>
+                            <input type="number" id="coldCalls" class="input" onchange="updateDashboard()">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 4px; font-weight: 500;">Warm Calls</label>
+                            <input type="number" id="warmCalls" class="input" onchange="updateDashboard()">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 4px; font-weight: 500;">Emails Sent</label>
+                            <input type="number" id="emails" class="input" onchange="updateDashboard()">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 4px; font-weight: 500;">🎂 Birthday Videos</label>
+                            <input type="number" id="birthdayVideos" class="input" onchange="updateDashboard()">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 4px; font-weight: 500;">Social Media Posts</label>
+                            <input type="number" id="socialPosts" class="input" onchange="updateDashboard()">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 4px; font-weight: 500;">Networking Events</label>
+                            <input type="number" id="networking" class="input" onchange="updateDashboard()">
+                        </div>
+                    </div>
+                    <div style="background: #dbeafe; padding: 12px; border-radius: 8px;">
+                        <span style="color: #1e40af; font-weight: 600;">Total Lead Activities: </span>
+                        <span style="font-weight: bold; font-size: 1.1rem;" id="totalLeads">0</span>
+                    </div>
+                </div>
+
+                <!-- Pipeline Management -->
+                <div class="card" style="background: #faf5ff;">
+                    <h3 style="margin: 0 0 16px 0; color: #7c3aed; font-weight: bold;">📋 Pipeline Management</h3>
+                    <div class="grid-2" style="margin-bottom: 16px;">
+                        <div>
+                            <label style="display: block; margin-bottom: 4px; font-weight: 500;">New Applications</label>
+                            <input type="number" id="newApplications" class="input" onchange="updateDashboard()">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 4px; font-weight: 500;">Apps Submitted</label>
+                            <input type="number" id="appsSubmitted" class="input" onchange="updateDashboard()">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 4px; font-weight: 500;">Loans In Process</label>
+                            <input type="number" id="loansInProcess" class="input" onchange="updateDashboard()">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 4px; font-weight: 500;">Approved & Looking</label>
+                            <input type="number" id="approvedLooking" class="input" onchange="updateDashboard()">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 4px; font-weight: 500;">Closings Today</label>
+                            <input type="number" id="closingsToday" class="input" onchange="updateDashboard()">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 4px; font-weight: 500;">Denials</label>
+                            <input type="number" id="denials" class="input" onchange="updateDashboard()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Financial Metrics -->
+            <div class="card" style="background: #fffbeb;">
+                <h3 style="margin: 0 0 16px 0; color: #d97706; font-weight: bold;">💰 Financial Metrics</h3>
+                <div class="grid-3">
+                    <div>
+                        <label style="display: block; margin-bottom: 4px; font-weight: 500;">Volume Submitted ($)</label>
+                        <input type="text" id="volumeSubmitted" class="input" placeholder="500,000" onchange="updateDashboard()">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 4px; font-weight: 500;">Volume Closed ($)</label>
+                        <input type="text" id="volumeClosed" class="input" placeholder="300,000" onchange="updateDashboard()">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 4px; font-weight: 500;">Productive Hours</label>
+                        <input type="number" step="0.5" id="productiveHours" class="input" placeholder="6.5" onchange="updateDashboard()">
+                    </div>
+                </div>
+                <div style="background: #fef3c7; padding: 12px; border-radius: 8px; margin-top: 16px;">
+                    <span style="color: #92400e; font-weight: 600;">Estimated Commission: </span>
+                    <span style="font-weight: bold; font-size: 1.25rem; color: #92400e;" id="estimatedCommission">$0</span>
+                </div>
+            </div>
+
+            <!-- Notes -->
+            <div class="card">
+                <h3 style="margin: 0 0 16px 0; font-weight: bold;">📝 Daily Notes & Observations</h3>
+                <textarea id="notes" class="input" rows="4" placeholder="Record key wins, challenges, follow-up items, client feedback, market observations..." style="resize: vertical;"></textarea>
+            </div>
+
+            <!-- Save Button -->
+            <div style="text-align: center; margin-top: 24px;">
+                <button class="btn" onclick="saveData()">
+                    💾 Save Daily Activities
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set current date
+        document.getElementById('currentDate').value = new Date().toISOString().split('T')[0];
+        
+        // Format numbers with commas
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+        
+        // Parse number removing commas
+        function parseNumber(str) {
+            return parseInt(str.replace(/,/g, '')) || 0;
+        }
+        
+        // Update calculations
+        function updateCalculations() {
+            const yearlyIncome = parseNumber(document.getElementById('yearlyIncome').value);
+            const avgLoanSize = parseNumber(document.getElementById('avgLoanSize').value);
+            const avgBPS = parseFloat(document.getElementById('avgBPS').value) || 0;
+            
+            const commissionPerLoan = avgLoanSize > 0 && avgBPS > 0 ? avgLoanSize * (avgBPS / 10000) : 0;
+            const loansPerYear = commissionPerLoan > 0 ? Math.ceil(yearlyIncome / commissionPerLoan) : 0;
+            const loansPerMonth = Math.ceil(loansPerYear / 12);
+            const loansPerWeek = Math.ceil(loansPerYear / 52);
+            
+            document.getElementById('commissionPerLoan').textContent = '$' + formatNumber(commissionPerLoan);
+            document.getElementById('loansPerYear').textContent = loansPerYear;
+            document.getElementById('loansPerMonth').textContent = loansPerMonth;
+            document.getElementById('loansPerWeek').textContent = loansPerWeek;
+        }
+        
+        // Update dashboard
+        function updateDashboard() {
+            const coldCalls = parseInt(document.getElementById('coldCalls').value) || 0;
+            const warmCalls = parseInt(document.getElementById('warmCalls').value) || 0;
+            const emails = parseInt(document.getElementById('emails').value) || 0;
+            const birthdayVideos = parseInt(document.getElementById('birthdayVideos').value) || 0;
+            const socialPosts = parseInt(document.getElementById('socialPosts').value) || 0;
+            const networking = parseInt(document.getElementById('networking').value) || 0;
+            
+            const totalCalls = coldCalls + warmCalls;
+            const totalLeads = coldCalls + warmCalls + emails + birthdayVideos + socialPosts + networking;
+            
+            const newApps = parseInt(document.getElementById('newApplications').value) || 0;
+            const closingsToday = parseInt(document.getElementById('closingsToday').value) || 0;
+            
+            const volumeClosed = parseNumber(document.getElementById('volumeClosed').value);
+            const avgBPS = parseFloat(document.getElementById('avgBPS').value) || 0;
+            const commission = volumeClosed > 0 && avgBPS > 0 ? volumeClosed * (avgBPS / 10000) : 0;
+            
+            document.getElementById('totalCalls').textContent = totalCalls;
+            document.getElementById('totalLeads').textContent = totalLeads;
+            document.getElementById('newApps').textContent = newApps;
+            document.getElementById('closings').textContent = closingsToday;
+            document.getElementById('commission').textContent = '$' + formatNumber(commission);
+            document.getElementById('estimatedCommission').textContent = '$' + formatNumber(commission);
+            
+            updateCalculations();
+        }
+        
+        // Save data
+        function saveData() {
+            const data = {
+                date: document.getElementById('currentDate').value,
+                coldCalls: document.getElementById('coldCalls').value,
+                warmCalls: document.getElementById('warmCalls').value,
+                emails: document.getElementById('emails').value,
+                birthdayVideos: document.getElementById('birthdayVideos').value,
+                socialPosts: document.getElementById('socialPosts').value,
+                networking: document.getElementById('networking').value,
+                newApplications: document.getElementById('newApplications').value,
+                appsSubmitted: document.getElementById('appsSubmitted').value,
+                loansInProcess: document.getElementById('loansInProcess').value,
+                approvedLooking: document.getElementById('approvedLooking').value,
+                closingsToday: document.getElementById('closingsToday').value,
+                denials: document.getElementById('denials').value,
+                volumeSubmitted: document.getElementById('volumeSubmitted').value,
+                volumeClosed: document.getElementById('volumeClosed').value,
+                productiveHours: document.getElementById('productiveHours').value,
+                notes: document.getElementById('notes').value,
+                timestamp: new Date().toLocaleString()
+            };
+            
+            alert('Daily activities saved! Data captured for ' + data.date);
+            console.log('Saved data:', data);
+        }
+        
+        // Add event listeners for number formatting
+        ['yearlyIncome', 'avgLoanSize', 'volumeSubmitted', 'volumeClosed'].forEach(id => {
+            const input = document.getElementById(id);
+            input.addEventListener('input', function(e) {
+                const value = e.target.value.replace(/,/g, '');
+                if (!isNaN(value) && value !== '') {
+                    e.target.value = formatNumber(value);
+                }
+            });
+        });
+        
+        // Initialize
+        updateCalculations();
+        updateDashboard();
+    </script>
+</body>
+</html>
